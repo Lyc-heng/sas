@@ -3,7 +3,9 @@
 ## 实验介绍
 
 在如今的软件越来越多的情况下，人工进行漏洞测试逐渐变成一种费时间、测试面又窄的方法，所以逐渐出现了全自动的测试工具，例如sqlmap、wfuzz等等。
+
 原本项目是打算结合模糊测试去进行渗透测试的，经过多次试验后选择了sully。但由于时间有限，最后实现的效果并不如预期那么好，所以这里先提交效果更好的版本，后续会根据缺陷再进行改进，让其实现模糊测试去进行渗透的效果。
+
 最后实现的效果为支持目录扫描、端口扫描、SQL注入等常见漏洞的渗透测试，并实现支持输出结果过滤、携带payload、携带cookie等细节。
 
 ## 试验环境
@@ -151,40 +153,40 @@
 
         python main.py -w http://127.0.0.1/dvwa/ -t 4 -f common.txt
 
-    ![](img/2.png)
+    ![](img/2.PNG)
 
 - 对网站资源进行探测，过滤404情况
 
         python main.py -w http://127.0.0.1/dvwa/ -t 4 -f common.txt -c 404
 
-    ![](img/1.png)
+    ![](img/1.PNG)
 
 - 对网站资源进行探测，将非404结果以截图的形式保存
 
         python main.py -w http://127.0.0.1/dvwa/ -t 4 -f common.txt -c 404 -s
 
-    ![](img/3.png)
+    ![](img/3.PNG)
 
 - 带cookie的sql注入检测
 
         python main.py -w "http://127.0.0.1/dvwa/vulnerabilities/sqli/?id=FUZZ&Submit=Submit#" -t 4 -f MySQL.txt  -i "" -a "PHPSESSID=8atmsl8rhf7hqac39dgn2g8ilm&security=low"
 
-    ![](img/4.png)
+    ![](img/4.PNG)
 
 - 带cookie的xss检测
 
         python main.py -w http://127.0.0.1/dvwa/vulnerabilities/xss_r/?name=FUZZ# -t 4 -f xss-rsnake.txt -x "" -a "PHPSESSID=qnvh2vgteojn5ppiaigra9pa6j&security=low"
 
-    ![](img/5.png)
+    ![](img/5.PNG)
 
 - 源码泄露检测，DVWA没有检测到泄露
 
         python main.py -l http://127.0.0.1/dvwa -t 4 -f source_leak_scan.txt
 
-    ![](img/6.png)
+    ![](img/6.PNG)
 
 ## 总结
 
-本次实验学习了常见的Web渗透测试的方法和相关常见的web漏洞并完成了自动化工具的构建，虽然还有很多细节没有考虑到的地方，后面会进行完善并结合模糊测试进去
+本次实验学习了常见的Web渗透测试的方法和相关常见的web漏洞并完成了自动化检测工具的构建。目前版本已经实现了基本的渗透测试的功能，虽然还有很多细节没有考虑到的地方，后面会进行完善并与sully进行结合
 
 实现部分的代码已经给出了详细的注释
